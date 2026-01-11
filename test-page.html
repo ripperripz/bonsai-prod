@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test Console</title>
+</head>
+
+<body>
+    <h1>Loading main app...</h1>
+    <div id="errors"></div>
+    <script type="module">
+        // Capture console errors
+        const errors = [];
+        const originalError = console.error;
+        console.error = function (...args) {
+            errors.push(args.join(' '));
+            originalError.apply(console, args);
+        };
+
+        // Try to load the main app
+        try {
+            await import('/src/main.tsx');
+        } catch (e) {
+            document.getElementById('errors').innerHTML = `
+                <h2 style="color: red;">Error Loading App:</h2>
+                <pre>${e.message}\n${e.stack}</pre>
+            `;
+            console.error('Failed to load app:', e);
+        }
+
+        // Display any console errors
+        setTimeout(() => {
+            if (errors.length > 0) {
+                document.getElementById('errors').innerHTML += `
+                    <h2 style="color: orange;">Console Errors:</h2>
+                    <pre>${errors.join('\n\n')}</pre>
+                `;
+            }
+        }, 2000);
+    </script>
+</body>
+
+</html>

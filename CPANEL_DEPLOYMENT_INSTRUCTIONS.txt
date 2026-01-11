@@ -1,0 +1,85 @@
+BONSAI WEBSITE - CPANEL DEPLOYMENT INSTRUCTIONS
+================================================
+
+📦 DEPLOYMENT PACKAGE: bonsai-cpanel-deployment.zip
+📅 Build Date: January 11, 2026
+🌐 Domain: bonsai.sa
+
+DEPLOYMENT STEPS:
+-----------------
+
+1. LOGIN TO CPANEL
+   - Go to your cPanel at: https://bonsai.sa/cpanel
+   - Login with your credentials
+
+2. BACKUP EXISTING FILES (IMPORTANT!)
+   - Navigate to File Manager
+   - Go to public_html directory
+   - Select all files and create a backup
+   - Download the backup to your computer
+
+3. CLEAR PUBLIC_HTML DIRECTORY
+   - Delete all existing files in public_html
+   - Keep the directory empty
+
+4. UPLOAD THE ZIP FILE
+   - Upload bonsai-cpanel-deployment.zip to public_html
+   - Right-click the zip file and select "Extract"
+   - Delete the zip file after extraction
+
+5. VERIFY FILE STRUCTURE
+   Your public_html should now contain:
+   ✓ index.html
+   ✓ assets/ (folder with CSS and JS)
+   ✓ images/ (folder with all images)
+   ✓ api/ (folder with send-email.php)
+   ✓ .htaccess (for URL routing)
+   ✓ sw.js (service worker)
+   ✓ translations.js
+
+6. SET FILE PERMISSIONS
+   - Set folders to 755
+   - Set files to 644
+   - Set api/send-email.php to 644
+
+7. CONFIGURE EMAIL
+   - Edit api/send-email.php if needed
+   - Verify email address: amad@bonsai.sa
+   - Test contact form after deployment
+
+8. TEST THE WEBSITE
+   - Visit https://bonsai.sa
+   - Test all pages and navigation
+   - Test language switching (EN/AR)
+   - Test contact form
+   - Check mobile responsiveness
+
+IMPORTANT NOTES:
+----------------
+✓ All images are optimized and compressed
+✓ Gzip and Brotli compression enabled
+✓ Service worker for offline support
+✓ Arabic and English translations included
+✓ SEO meta tags configured
+✓ Google Analytics ready (if configured)
+
+RECENT UPDATES IN THIS BUILD:
+-----------------------------
+✓ Fixed Arabic tooltip positioning on location map
+✓ Increased Siemens and RAK Ceramics logo sizes
+✓ Updated gallery to use 15 images (1.webp - 15.webp)
+✓ Updated masterplan images (arabicmasterplan.png / englishmasterplan.png)
+✓ Footer menu links changed to regular font (not bold)
+
+TROUBLESHOOTING:
+----------------
+- If pages show 404 errors: Check .htaccess file is present
+- If images don't load: Check images folder permissions (755)
+- If contact form fails: Check api/send-email.php permissions (644)
+- If Arabic text doesn't display: Clear browser cache
+
+SUPPORT:
+--------
+For technical support, contact your developer.
+
+🎉 Your website is ready for deployment!

@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar */
+body {
+  overflow-x: hidden;
+  font-family: 'Outfit', sans-serif;
+  font-display: swap;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FAFAF9;
+  color: #0F0E0D;
+}
+
+/* Arabic Typography Fix for iOS */
+[lang="ar"],
+[dir="rtl"],
+html[lang="ar"],
+html[lang="ar"] *,
+html[dir="rtl"] *,
+.arabic-text {
+  font-family: 'Tajawal', 'Cairo', 'Almarai', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Ensure proper Arabic rendering on iOS */
+[lang="ar"] *,
+[dir="rtl"] * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: normal;
+  font-synthesis: none;
+}
+
+/* Specific fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+
+  [lang="ar"] *,
+  [dir="rtl"] * {
+    font-family: 'Tajawal', -apple-system, sans-serif !important;
+  }
+}
+
+/* Font Face Fallback */
+@font-face {
+  font-family: 'Arabic-Fallback';
+  src: local('Arial'), local('Helvetica');
+  unicode-range: U+0600-06FF;
+}
+
+body::-webkit-scrollbar {
+  width: 3px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #F2EEEB;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #C6A87C;
+  border-radius: 4px;
+}
+
+/* Text Selection */
+::selection {
+  background: rgba(198, 168, 124, 0.3);
+  color: #0F0E0D;
+}
+
+/* Lenis Recommended CSS */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Noise Overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* Map Pin Custom Styles */
+.custom-pin {
+  background: transparent;
+  border: none;
+}
+
+.pin-inner {
+  width: 30px;
+  height: 30px;
+  background: #0F0E0D;
+  color: #C6A87C;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.pin-inner:hover {
+  transform: scale(1.2);
+  background: #C6A87C;
+  color: #0F0E0D;
+}
+
+/* Leaflet Tooltip Fixes */
+.leaflet-tooltip {
+  text-align: center;
+}
+
+.leaflet-tooltip.arabic-tooltip {
+  text-align: center !important;
+  white-space: nowrap !important;
+  direction: rtl !important;
+  position: relative !important;
+}
+
+/* Force center alignment for Arabic tooltips when direction is 'top' */
+.leaflet-tooltip-top.arabic-tooltip {
+  margin-left: 0 !important;
+}
+
+.leaflet-tooltip-top.arabic-tooltip::before {
+  left: 50% !important;
+  margin-left: -6px !important;
+}
+
+/* Scrollbar Utility for Map Lists */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #C6A87C;
+  border-radius: 4px;
+}
+
+/* Vertical Writing Mode Utilities */
+.writing-vertical-rl {
+  writing-mode: vertical-rl;
+}
+
+.writing-vertical-lr {
+  writing-mode: vertical-lr;
+}
+
+.font-jp {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+/* Hide reCAPTCHA Badge - Disclaimer provided in Contact Form */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+
+/* Premium Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Line Drawing Animation */
+@keyframes draw {
+  from {
+    stroke-dashoffset: 300;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-line-draw {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: draw 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}

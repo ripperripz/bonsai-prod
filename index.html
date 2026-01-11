@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- SEO Meta Tags -->
+    <title>Bonsai | Oasis of Serenity</title>
+    <meta name="description"
+        content="Japanese-inspired luxury residential project in Riyadh. Experience serenity where Japanese minimalism meets Saudi warmth." />
+    <meta name="keywords" content="Bonsai, Riyadh, luxury residences, Japanese design, Keiji Ashizawa, real estate" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Bonsai | Oasis of Serenity" />
+    <meta property="og:description" content="Japanese-inspired luxury residential project in Riyadh" />
+    <meta property="og:image" content="./public/og-image.jpg" />
+
+    <!-- Resource Hints - Critical for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="preconnect" href="https://lh7-rt.googleusercontent.com">
+    <link rel="preconnect" href="https://images.squarespace-cdn.com">
+
+    <!-- Critical CSS - Inline for faster FCP -->
+    <style>
+        /* Critical CSS for initial render */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background-color: #FAFAF9;
+            color: #0F0E0D;
+            overflow-x: hidden;
+        }
+
+        #root {
+            min-height: 100vh;
+        }
+
+        .loading-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #FAFAF9;
+        }
+    </style>
+
+    <!-- Optimized Font Loading with font-display: swap -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600&display=swap"
+        as="style">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&family=Noto+Sans+JP:wght@200;300;400&family=Tajawal:wght@300;400;500;700;800&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&family=Noto+Sans+JP:wght@200;300;400&family=Tajawal:wght@300;400;500;700;800&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <!-- Leaflet CSS - Load only when needed (deferred) -->
+    <link rel="preload" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    </noscript>
+
+    <!-- Deferred External Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js" defer></script>
+
+    <!-- External Translations (Editable by Client) -->
+    <script src="/translations.js?v=2"></script>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./index.css">
+
+    <!-- Google Analytics 4 - Async Loading (Production Only) -->
+    <!-- Replace G-XXXXXXXXXX with your actual GA4 Measurement ID -->
+    <script>
+        // Only load in production
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX', {
+                'send_page_view': false,
+                'anonymize_ip': true,
+                'cookie_flags': 'SameSite=None;Secure'
+            });
+
+            // Load GA script asynchronously
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+            document.head.appendChild(script);
+        }
+    </script>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": "Bonsai Residences",
+    "description": "Japanese-inspired luxury residential project in Riyadh",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Nahdah District",
+      "addressLocality": "Riyadh",
+      "addressCountry": "SA"
+    },
+    "url": "https://www.bonsai.sa"
+  }
+  </script>
+</head>
+
+<body class="bg-[#FAFAF9] text-[#0F0E0D] antialiased">
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Root Element with Loading State -->
+    <div id="root">
+        <div class="loading-screen">
+            <div style="text-align: center;">
+                <div style="font-size: 24px; color: #C6A87C; margin-bottom: 16px;">Bonsai</div>
+                <div style="font-size: 14px; color: #666;">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vite Entry Point - Module Script -->
+    <script type="module" src="./index.tsx"></script>
+
+    <!-- Load reCAPTCHA only on Contact page (lazy load) -->
+    <script>
+        // Lazy load reCAPTCHA when user navigates to contact page
+        if (window.location.hash.includes('contact')) {
+            var recaptchaScript = document.createElement('script');
+            recaptchaScript.src = 'https://www.google.com/recaptcha/api.js?render=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+            recaptchaScript.async = true;
+            recaptchaScript.defer = true;
+            document.head.appendChild(recaptchaScript);
+        }
+    </script>
+
+    <!-- Service Worker Registration for Caching (Optional) -->
+    <script>
+        if ('serviceWorker' in navigator && window.location.hostname !== 'localhost') {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js').then(function (registration) {
+                    console.log('ServiceWorker registered:', registration.scope);
+                }, function (err) {
+                    console.log('ServiceWorker registration failed:', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

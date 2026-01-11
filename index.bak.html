@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <script>
+    window.onerror = function (msg, url, line, col, error) {
+      document.body.innerHTML += '<div style="color:red; font-size: 20px; z-index:9999; position:fixed; top:0; left:0; width:100%; height:100%; background:white; padding:20px; text-align:left; overflow:auto;">' +
+        '<strong>Global Error:</strong><br/>' + msg + '<br/>' +
+        'URL: ' + url + '<br/>' +
+        'Line: ' + line + '<br/>' +
+        'Col: ' + col + '<br/>' +
+        'Stack: ' + (error ? error.stack : 'N/A') +
+        '</div>';
+      return false;
+    };
+    window.addEventListener('unhandledrejection', function (event) {
+      document.body.innerHTML += '<div style="color:red; font-size: 20px; z-index:9999; position:fixed; top:50%; left:0; width:100%; height:50%; background:white; padding:20px; text-align:left; border-top: 2px solid black; overflow:auto;">' +
+        '<strong>Unhandled Promise Rejection:</strong><br/>' + event.reason +
+        '</div>';
+    });
+  </script>
+  <title>Bonsai | Oasis of Serenity</title>
+  <meta name="description" content="Japanese-inspired luxury residential project in Riyadh." />
+
+  <!-- Resource Hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="preconnect" href="https://lh7-rt.googleusercontent.com">
+  <link rel="preconnect" href="https://images.squarespace-cdn.com">
+
+  <!-- Critical Font Preloading -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600&display=swap"
+    as="style">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&family=Noto+Sans+JP:wght@200;300;400&family=Tajawal:wght@300;400;500;700;800&display=swap"
+    rel="stylesheet" media="print" onload="this.media='all'">
+
+  <!-- Leaflet Assets (Deferred) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+
+  <!-- Non-critical External Scripts (Async/Defer) -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js" defer></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" async
+    defer></script>
+
+  <!-- External Translations (Editable by Client) -->
+  <script src="./translations.js"></script>
+
+
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body class="bg-[#FAFAF9] text-[#0F0E0D] antialiased">
+  <div class="noise-overlay"></div>
+  <div id="root"></div>
+  <!-- Vite Entry Point -->
+  <script type="module" src="./index.tsx"></script>
+</body>
+
+</html>
