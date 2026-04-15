@@ -11,7 +11,7 @@ export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { t, toggleLanguage, language } = useLanguage();
+  const { t, toggleLanguage, language, showProjects } = useLanguage();
   const menuScrollRef = useRef<HTMLDivElement>(null);
 
   // Check if we are on the home page
@@ -22,8 +22,8 @@ export const Navbar: React.FC = () => {
     { label: t.nav.designer, path: '/designer' },
     { label: t.nav.serenity, path: '/serenity' },
     { label: t.nav.amenities, path: '/amenities' },
-    { label: t.nav.residences, path: '/project' },
-    { label: t.nav.projects, path: '/projects' },
+    { label: t.nav.residences, path: '/project/nahda' },
+    ...(showProjects ? [{ label: t.nav.projects, path: '/projects' }] : []),
     { label: t.nav.location, path: '/location' },
     { label: t.nav.brochure, path: '/brochure' },
     { label: t.nav.contact, path: '/contact' },

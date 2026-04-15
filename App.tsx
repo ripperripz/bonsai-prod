@@ -52,6 +52,30 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     );
 };
 
+const ProjectRoutes: React.FC = () => {
+    const { showProjects } = useLanguage();
+    return (
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/designer" element={<Designer />} />
+            <Route path="/serenity" element={<Serenity />} />
+            {/* Direct access to project detail by ID */}
+            <Route path="/project/:id" element={<Project />} />
+            {/* Fallback for the old route, defaults to nahda */}
+            <Route path="/project" element={<Project />} />
+            <Route path="/amenities" element={<Amenities />} />
+            {showProjects && <Route path="/projects" element={<Projects />} />}
+            <Route path="/location" element={<LocationPage />} />
+            <Route path="/brochure" element={<Brochure />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            {/* Fallback redirect */}
+            <Route path="*" element={<Home />} />
+        </Routes>
+    );
+};
+
 const App: React.FC = () => {
     useEffect(() => {
         // Initialize Google Analytics on app mount
@@ -70,19 +94,7 @@ const App: React.FC = () => {
                         <Navbar />
                         <main className="flex-grow">
                             <Suspense fallback={<PageLoader />}>
-                                <Routes>
-                                    <Route path="/" element={<Home />} />
-                                    <Route path="/designer" element={<Designer />} />
-                                    <Route path="/serenity" element={<Serenity />} />
-                                    <Route path="/project" element={<Project />} />
-                                    <Route path="/amenities" element={<Amenities />} />
-                                    <Route path="/projects" element={<Projects />} />
-                                    <Route path="/location" element={<LocationPage />} />
-                                    <Route path="/brochure" element={<Brochure />} />
-                                    <Route path="/contact" element={<Contact />} />
-                                    <Route path="/terms" element={<Terms />} />
-                                    <Route path="/privacy" element={<Privacy />} />
-                                </Routes>
+                                <ProjectRoutes />
                             </Suspense>
                         </main>
                         <Footer />

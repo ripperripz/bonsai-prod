@@ -198,171 +198,108 @@ export const translations = {
         installments: "Installments"
       }
     },
+    projectDetails: {
+      nahda: {
+        interiorPerspective: "Interior Perspective",
+        residences: {
+          title: "The Residences",
+          sub: "Typologies",
+          studio: {
+            name: "The Studio",
+            desc: "A compact masterpiece of efficiency and calm. Designed for the modern individual who values mindfulness and minimalism.",
+            features: ["Smart Open Layout", "Japanese Zen Finishes", "Integrated Storage"]
+          },
+          bed2: {
+            name: "2 Bedroom",
+            desc: "A perfect balance of shared living and private retreat. Ideal for small families or professionals needing extra space.",
+            features: ["Master Ensuite", "Spacious Living Area", "Natural Light Optimization"]
+          },
+          bed3: {
+            name: "3 Bedroom",
+            desc: "Expansive luxury for the growing family. Featuring spacious units and distinct zones for relaxation and gathering.",
+            features: ["Spacious Units", "Guest Powder Room", "Panoramic Windows"]
+          },
+          specs: {
+            area: "Area",
+            type: "Type"
+          },
+          viewPlan: "View Floor Plan"
+        },
+        payment: {
+          paymentOptions: "Payment Options",
+          recommendation: "Recommendation",
+          desc: "Priority and preference are given to customers wishing to purchase their units in cash. The project is considered a premium investment project. We also offer installment options for buyers who prefer to pay in installments.",
+          preferredChoice: "Preferred Choice",
+          cash100: "100% Cash",
+          installmentPlan: "Installment Plan"
+        },
+        warranties: {
+          title: "Warranties",
+          sub: "Peace of Mind",
+          desc: "Comprehensive coverage provided by manufacturers, detailing exact duration and protection for every aspect of your home.",
+          inquire: "Inquire Now",
+          years: "Years",
+          items: {
+            structure: "Structure",
+            electricPanels: "Electric Panels",
+            insulation: "Insulation",
+            electricPlumbing: "Electric & Plumbing",
+            fullWarranty: "Full Warranty",
+            elevatorsLights: "Elevators & Lights",
+            doorsPaint: "Doors & Paint",
+            aluminium: "Aluminium"
+          }
+        },
+        masterplan: {
+          title: "Masterplan",
+          sub: "Layout",
+          desc: "A thoughtful arrangement of 4 distinct phases, connected by a central 30m road, creating a cohesive community flow."
+        },
+        brands: {
+          title: "Quality Brands",
+          sub: "Excellence",
+          desc: "Quality is a comprehensive journey; it begins with design quality and extends to craftsmanship in execution, but more importantly, quality fundamentally depends on the quality of materials and brands used in the project.",
+          disclaimer: "The brands used vary by project, and similar or alternative brands may be used."
+        },
+        techSpecs: {
+          title: "Technical Specifications",
+          sub: "Engineering",
+          architectural: {
+            title: "Architectural",
+            items: ["Effective water and heat insulation", "High-quality aluminum windows", "Covered shared gardens", "Electronic entry systems", "Emergency stairs", "Wood and WPC doors"]
+          },
+          mechanical: {
+            title: "Mechanical",
+            items: ["High-quality drainage pipes", "Porcelain wall-mounted sinks", "High-quality water tanks", "Ventilation for bathrooms/kitchens", "High-quality sanitary ware", "Irrigation system", "Air-conditioned service areas", "High-quality supply pipes", "High-quality mixers"]
+          },
+          electrical: {
+            title: "Electrical",
+            items: ["High-quality panels", "Intercom system", "Internet foundation", "High-quality connections", "TV foundation", "Cameras for services", "Energy-saving lighting", "Telephone foundation", "IP65 outdoor switches"]
+          }
+        },
+        exceptionalDesign: {
+          title: "Exceptional Design",
+          sub: "Honest Design",
+          quote: "\"Precise use of space and meticulous attention to detail.\"",
+          spaceUtilization: "Space Utilization",
+          spaceUtilizationDesc: "Influenced by Japanese architecture, mastering space utilization.",
+          craftsmanship: "Craftsmanship",
+          craftsmanshipDesc: "Distinction achieved through perfection."
+        }
+      },
+      // Copying Nahda as base for other 3, can be customized later
+      aredh: { name: "Bonsai Aredh" },
+      remal: { name: "Bonsai Remal" },
+      tower: { name: "Bonsai Tower" }
+    },
+    // Keep a mapping for simple usage
     project: {
       interiorPerspective: "Interior Perspective",
-      residences: {
-        title: "The Residences",
-        sub: "Typologies",
-        studio: {
-          name: "The Studio",
-          desc: "A compact masterpiece of efficiency and calm. Designed for the modern individual who values mindfulness and minimalism.",
-          features: ["Smart Open Layout", "Japanese Zen Finishes", "Integrated Storage"]
-        },
-        bed2: {
-          name: "2 Bedroom",
-          desc: "A perfect balance of shared living and private retreat. Ideal for small families or professionals needing extra space.",
-          features: ["Master Ensuite", "Spacious Living Area", "Natural Light Optimization"]
-        },
-        bed3: {
-          name: "3 Bedroom",
-          desc: "Expansive luxury for the growing family. Featuring spacious units and distinct zones for relaxation and gathering.",
-          features: ["Spacious Units", "Guest Powder Room", "Panoramic Windows"]
-        },
-        specs: {
-          area: "Area",
-          type: "Type"
-        },
-        viewPlan: "View Floor Plan"
-      },
-      payment: {
-        recommendation: "Recommendation",
-        preference: "100% Cash Preference",
-        desc: "Priority and preference are given to customers wishing to purchase their units in cash. The project is considered a premium investment project. We also offer installment options for buyers who prefer to pay in installments.",
-        preferredChoice: "Preferred Choice",
-        cash100: "100% Cash",
-        installmentPlan: "Installment Plan",
-        paymentOptions: "Payment Options",
-        table: {
-          stage: "Stage",
-          milestone: "Milestone",
-          amount: "Amount",
-          total: "Total Paid",
-          handover: "HANDOVER",
-          signing: "SIGNING"
-        }
-      },
-      warranties: {
-        title: "Warranties",
-        sub: "Peace of Mind",
-        desc: "Comprehensive coverage provided by manufacturers, detailing exact duration and protection for every aspect of your home.",
-        inquire: "Inquire Now",
-        years: "Years",
-        items: {
-          structure: "Structure",
-          electricPanels: "Electric Panels",
-          insulation: "Insulation",
-          electricPlumbing: "Electric & Plumbing",
-          fullWarranty: "Full Warranty",
-          elevatorsLights: "Elevators & Lights",
-          doorsPaint: "Doors & Paint",
-          aluminium: "Aluminium"
-        }
-      },
-      masterplan: {
-        title: "Masterplan",
-        sub: "Layout",
-        desc: "A thoughtful arrangement of 4 distinct phases, connected by a central 30m road, creating a cohesive community flow.",
-        phase1: "Phase 1",
-        phase2: "Phase 2",
-        phase3: "Phase 3",
-        phase4: "Phase 4",
-        socialClub: "Social Club",
-        neighbor: "Neighbor"
-      },
-      amenities: {
-        title: "Amenities",
-        sub: "Elevated Living",
-        serenity: "Serenity",
-        serenityItems: ["Japanese Gardens", "Scented Hallways", "Japanese Tearoom"],
-        highlights: "Highlights",
-        highlightsItems: ["Water Features", "Mist Cooling", "Covered Gardens"],
-        entertainment: "Entertainment",
-        entertainmentItems: ["Cinema Room", "Playstation Room", "Recreation Area"],
-        amenitiesLabel: "Amenities",
-        amenitiesItems: ["Co-working Area", "Reading Library", "Clubhouse Lounge"],
-        services: "Services",
-        servicesItems: ["Mini Market", "Laundry Room", "Delivery Lockers"],
-        features: "Features",
-        featuresItems: ["24/7 Security", "Smart Home Integration", "Concierge Service"]
-      },
-      clubhouse: {
-        title: "The Clubhouse",
-        sub: "Community",
-        teaRoom: "Japanese Tea Room",
-        teaRoomDesc: "A quiet corner that evokes the essence of traditional Japanese rituals, where the simple act of drinking tea transforms into a spiritual ceremony — rich with simplicity, respect, and peaceful silence.",
-        gardens: "Japanese Gardens",
-        gardensDesc: "Spaces designed with the spirit of Zen, where trees, stones, and water come together in perfect harmony to create an atmosphere of reflection and serenity.",
-        library: "Library",
-        libraryDesc: "A space that speaks the language of silence — where books rest quietly. A library born to be a sanctuary for deep thought.",
-        cinema: "Cinema",
-        cinemaDesc: "A visual experience designed to immerse you in moments of quiet delight — where the screen comes to life, and sound blends softly with stillness.",
-        workspace: "Workspace",
-        workspaceDesc: "A work environment inspired by the Japanese balance between focus and flow, where calm details and thoughtful design help you produce your best.",
-        recreation: "Recreation Area",
-        recreationDesc: "A space designed as a vibrant outlet for leisure and connection — embracing meaningful moments while preserving the project's serene character."
-      },
-      exceptionalDesign: {
-        title: "Exceptional Design",
-        sub: "Honest Design",
-        quote: "\"Precise use of space and meticulous attention to detail.\"",
-        desc: "Every corner reflects thoughtful design. Every detail speaks to quality. At Bonsai, exceptional design is not a luxury — it's a philosophy.",
-        spaceUtilization: "Space Utilization",
-        spaceUtilizationDesc: "We drew inspiration from Japanese architecture in mastering the art of space utilization — transforming every square meter into meaningful, livable value that breathes order and calm.",
-        craftsmanship: "Craftsmanship",
-        craftsmanshipDesc: "We believe that great design is not measured by size, but by the depth of thought. We strive for a higher level of accuracy because true distinction can only be achieved through perfection."
-      },
-      paymentOptions: {
-        title: "Payment Options",
-        sub: "Installments"
-      },
       brands: {
         title: "Quality Brands",
         sub: "Excellence",
-        desc: "Quality is a comprehensive journey; it begins with design quality and extends to craftsmanship in execution, but more importantly, quality fundamentally depends on the quality of materials and brands used in the project. We always strive to achieve a balance between quality and cost efficiency, and rely on a curated collection of leading national and international brands known and recognized for quality.",
-        disclaimer: "The brands that will actually be used vary by project, and similar or alternative brands may be used."
-      },
-      techSpecs: {
-        title: "Technical Specifications",
-        sub: "Engineering",
-        architectural: {
-          title: "Architectural",
-          items: [
-            "Effective water and heat insulation",
-            "High-quality aluminum windows",
-            "Covered shared gardens",
-            "Electronic entry systems",
-            "Emergency stairs",
-            "Wood and WPC doors"
-          ]
-        },
-        mechanical: {
-          title: "Mechanical",
-          items: [
-            "High-quality drainage pipes",
-            "Porcelain wall-mounted sinks",
-            "High-quality water tanks",
-            "Ventilation for bathrooms and kitchens",
-            "High-quality sanitary ware",
-            "Irrigation system for shared gardens",
-            "Air-conditioned service areas",
-            "High-quality supply pipes",
-            "High-quality mixers"
-          ]
-        },
-        electrical: {
-          title: "Electrical",
-          items: [
-            "High-quality panels",
-            "Intercom system",
-            "Internet system foundation",
-            "High-quality connections",
-            "TV system foundation",
-            "Cameras for service areas",
-            "Energy-saving lighting units",
-            "Telephone system foundation",
-            "IP65 outdoor switches"
-          ]
-        }
+        desc: "Quality is a comprehensive journey...",
+        disclaimer: "The brands that will actually be used vary by project..."
       }
     },
     brochure: {
@@ -1032,6 +969,100 @@ export const translations = {
         installments: "أقساط"
       }
     },
+    projectDetails: {
+      nahda: {
+        interiorPerspective: "منظور داخلي",
+        residences: {
+          title: "الوحدات السكنية",
+          sub: "الأنواع",
+          studio: {
+            name: "ستوديو",
+            desc: "تحفة مدمجة من الكفاءة والهدوء. صممت للفرد العصري الذي يقدر الوعي والبساطة.",
+            features: ["تخطيط مفتوح ذكي", "تشطيبات يابانية هادئة", "تخزين مدمج"]
+          },
+          bed2: {
+            name: "شقة غرفتين",
+            desc: "توازن مثالي بين المعيشة المشتركة والخصوصية. مثالية للعائلات الصغيرة.",
+            features: ["جناح رئيسي", "منطقة معيشة واسعة", "إضاءة طبيعية مثالية"]
+          },
+          bed3: {
+            name: "شقة 3 غرف",
+            desc: "فخامة واسعة للعائلة. تتميز بمساحة رحبة ومناطق مميزة للاسترخاء.",
+            features: ["مساحة رحبة", "حمام ضيوف", "نوافذ بانورامية"]
+          },
+          specs: {
+            area: "المساحة",
+            type: "النوع"
+          },
+          viewPlan: "عرض المسقط"
+        },
+        payment: {
+          paymentOptions: "خيارات الدفع",
+          recommendation: "توصية",
+          desc: "نعطي الأولوية والأفضلية للعملاء الراغبين في شراء وحداتهم بشكل نقدي. كما نوفر خيار التقسيط للعملاء الراغبين بالشراء على دفعات.",
+          preferredChoice: "الخيار المفضل",
+          cash100: "100% نقداً",
+          installmentPlan: "التقسيط"
+        },
+        warranties: {
+          title: "الضمانات",
+          sub: "راحة البال",
+          desc: "تغطية شاملة مقدمة من المصنعين، توضح المدة الدقيقة والحماية لكل جانب من جوانب منزلك.",
+          inquire: "استفسر الآن",
+          years: "سنوات",
+          items: {
+            structure: "الهيكل الإنشائي",
+            electricPanels: "اللوحات الكهربائية",
+            insulation: "العزل",
+            electricPlumbing: "الكهرباء والسباكة",
+            fullWarranty: "ضمان شامل",
+            elevatorsLights: "المصاعد والإضاءة",
+            doorsPaint: "الأبواب والدهانات",
+            aluminium: "الألمنيوم"
+          }
+        },
+        masterplan: {
+          title: "المخطط العام",
+          sub: "تخطيط",
+          desc: "ترتيب مدروس لـ 4 مراحل متميزة، متصلة بطريق مركزي بعرض 30 متراً."
+        },
+        brands: {
+          title: "علامات الجودة",
+          sub: "التميز",
+          desc: "الجودة رحلة شاملة؛ تبدأ من جودة التصميم وصولاً إلى الحرفية في التنفيذ، وتعتمد أساساً على جودة المواد المستخدمة.",
+          disclaimer: "العلامات المستخدمة تختلف حسب المشروع، وقد تُستخدم علامات مماثلة أو بديلة."
+        },
+        techSpecs: {
+          title: "المواصفات الفنية",
+          sub: "الهندسة",
+          architectural: {
+            title: "المعمارية",
+            items: ["عزل مائي وحراري فعال", "نوافذ ألمنيوم عالية الجودة", "حدائق مشتركة مغطاة", "أنظمة دخول إلكترونية", "سلالم طوارئ", "أبواب خشبية و WPC"]
+          },
+          mechanical: {
+            title: "الميكانيكية",
+            items: ["أنابيب صرف عالية الجودة", "مغاسل معلقة بورسلان", "خزانات مياه عالية الجودة", "تهوية للحمامات والمطابخ", "أدوات صحية عالية الجودة", "نظام ري", "مناطق خدمات مكيفة", "أنابيب تغذية عالية الجودة", "خلاطات عالية الجودة"]
+          },
+          electrical: {
+            title: "الكهربائية",
+            items: ["لوحات عالية الجودة", "نظام انتركوم", "تأسيس نظام الإنترنت", "توصيلات عالية الجودة", "تأسيس نظام التلفاز", "كاميرات للمناطق المشتركة", "وحدات إضاءة موفرة للطاقة", "تأسيس نظام الهاتف", "مفاتيح خارجية IP65"]
+          }
+        },
+        exceptionalDesign: {
+          title: "تصميم استثنائي",
+          sub: "تصميم صادق",
+          quote: "\"استخدام دقيق للمساحات واهتمام مطلع بالتفاصيل.\"",
+          spaceUtilization: "استغلال المساحات",
+          spaceUtilizationDesc: "استلهام من العمارة اليابانية في إتقان فن استغلال المساحات.",
+          craftsmanship: "إتقان التصميم",
+          craftsmanshipDesc: "التمييز الحقيقي لا يمكن تحقيقه إلا من خلال الكمال."
+        }
+      },
+      aredh: { name: "بونساي العارض" },
+      remal: { name: "بونساي الرمال" },
+      tower: { name: "برج بونساي" }
+    },
+
     projects: {
       title: "مشاريع بونساي",
       sub: "مجموعتنا",
@@ -1056,7 +1087,7 @@ export const translations = {
           units: "250",
           price: "650,000",
           status: "available",
-          link: "/project"
+          link: "/project/nahda"
         },
         aredh: {
           name: "بونساي العارض",
@@ -1066,7 +1097,7 @@ export const translations = {
           units: "270",
           price: "800,000",
           status: "coming",
-          link: "#"
+          link: "/project/aredh"
         },
         remal: {
           name: "بونساي الرمال",
@@ -1076,7 +1107,7 @@ export const translations = {
           units: "550",
           price: "750,000",
           status: "coming",
-          link: "#"
+          link: "/project/remal"
         },
         tower: {
           name: "برج بونساي",
@@ -1086,7 +1117,7 @@ export const translations = {
           units: "120",
           price: "1,200,000",
           status: "coming",
-          link: "#"
+          link: "/project/tower"
         }
       }
     }

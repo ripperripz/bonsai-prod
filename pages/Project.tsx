@@ -2,15 +2,26 @@ import React, { useState } from 'react';
 import { Section, Reveal, JapaneseTitle, Button, ClipReveal, Lightbox } from '../components/UI';
 import { MasterplanMap } from '../components/MasterplanMap';
 import { SEO } from '../components/SEO';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Layout } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Project: React.FC = () => {
    const { t, language } = useLanguage();
+   const { id } = useParams<{ id: string }>();
+
+   // Default to 'nahda' if no ID provided or project not found
+   const projectId = (id && (t as any).projectDetails[id]) ? id : 'nahda';
+   const projectData = (t as any).projectDetails[projectId];
 
    // Safe access to project translations
-   const residencesT = t?.project?.residences;
+   const residencesT = projectData?.residences;
+   const designT = projectData?.exceptionalDesign;
+   const warrantiesT = projectData?.warranties;
+   const paymentT = projectData?.payment;
+   const masterplanT = projectData?.masterplan;
+   const brandsT = projectData?.brands;
+   const techT = projectData?.techSpecs;
 
    // --- Residences State ---
    const [activeUnit, setActiveUnit] = useState<'studio' | 'bed2' | 'bed3'>('bed2');
@@ -68,7 +79,23 @@ const Project: React.FC = () => {
       }
    };
 
+
    const currentUnit = units[activeUnit];
+
+   // Safety check - if no project data, show error
+   if (!projectData) {
+      return (
+         <div className="pt-24 min-h-screen flex items-center justify-center bg-[#F7F5F2]">
+            <div className="text-center">
+               <h1 className="text-4xl font-bold text-[#0F0E0D] mb-4">Project Not Found</h1>
+               <p className="text-[#0F0E0D]/60">The project "{id || 'nahda'}" could not be loaded.</p>
+               <Link to="/" className="mt-8 inline-block">
+                  <Button variant="primary">Return Home</Button>
+               </Link>
+            </div>
+         </div>
+      );
+   }
 
    return (
       <div className="pt-24 bg-[#F7F5F2]">
@@ -123,7 +150,7 @@ const Project: React.FC = () => {
                               </span>
                               <div className={`flex items-baseline gap-2 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
                                  <span className={`text-4xl md:text-5xl font-light text-white ${language === 'ar' ? 'font-arabic' : 'font-sans'}`}>
-                                    {t.projects?.projectsList?.nahda?.price || "1,200,000"}
+                                    {(t.projects?.projectsList as any)?.[projectId]?.price || "TBA"}
                                  </span>
                                  <span className={`text-xl text-white/90 ${language === 'ar' ? 'font-arabic' : ''}`}>
                                     {t.projects?.sar || "SAR"}
@@ -195,21 +222,34 @@ const Project: React.FC = () => {
                         direction={language === 'ar' ? "right" : "left"}
                      />
                      <div className={`absolute bottom-8 ${language === 'ar' ? 'left-8' : 'right-8'} bg-white/90 backdrop-blur px-6 py-3 shadow-lg z-20`}>
-                        <span className={`text-xs font-bold uppercase tracking-widest text-[#0F0E0D] ${language === 'ar' ? 'font-arabic' : ''}`}>{t.project.interiorPerspective}</span>
+                        <span className={`text-xs font-bold uppercase tracking-widest text-[#0F0E0D] ${language === 'ar' ? 'font-arabic' : ''}`}>{projectData?.interiorPerspective}</span>
                      </div>
                   </div>
                </div>
             </div>
          </Section>
 
+         {/* Dynamic Header */}
+         <div className="pt-32 pb-20 container mx-auto px-6">
+            <Reveal>
+               <JapaneseTitle
+                  main={(t.projects?.projectsList as any)?.[projectId]?.name || "Bonsai"}
+                  sub={(t.projects?.projectsList as any)?.[projectId]?.location || "Riyadh"}
+               />
+               <p className={`text-xl text-gray-400 mt-6 max-w-2xl leading-relaxed ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
+                  {(t.projects?.projectsList as any)?.[projectId]?.description}
+               </p>
+            </Reveal>
+         </div>
+
          {/* --- 2. EXCEPTIONAL DESIGN (P7) --- */}
          <Section className="bg-[#F7F5F2] py-40">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
                <div className="lg:col-span-5">
                   <Reveal>
-                     <JapaneseTitle main={t.project.exceptionalDesign?.title || "Exceptional Design"} sub={t.project.exceptionalDesign?.sub || "Honest Design"} />
+                     <JapaneseTitle main={designT?.title || "Exceptional Design"} sub={designT?.sub || "Honest Design"} />
                      <p className="text-[#0F0E0D]/60 text-lg leading-relaxed mt-8 font-light italic">
-                        {(t.project.exceptionalDesign as any)?.quote}
+                        {designT?.quote}
                      </p>
                   </Reveal>
                </div>
@@ -227,9 +267,9 @@ const Project: React.FC = () => {
                <Reveal delay={0}>
                   <div className="bg-white p-12 border border-[#0F0E0D]/5 h-full">
                      <span className="text-xs font-bold uppercase tracking-widest text-[#C6A87C] mb-6 block">01</span>
-                     <h3 className={`font-sans font-light text-3xl mb-6 text-[#0F0E0D] ${language === 'ar' ? 'font-arabic font-normal' : ''}`}>{(t.project.exceptionalDesign as any)?.spaceUtilization}</h3>
+                     <h3 className={`font-sans font-light text-3xl mb-6 text-[#0F0E0D] ${language === 'ar' ? 'font-arabic font-normal' : ''}`}>{designT?.spaceUtilization}</h3>
                      <p className={`text-[#0F0E0D]/70 leading-relaxed font-light ${language === 'ar' ? 'font-arabic' : ''}`}>
-                        {(t.project.exceptionalDesign as any)?.spaceUtilizationDesc}
+                        {designT?.spaceUtilizationDesc}
                      </p>
                   </div>
                </Reveal>
@@ -237,9 +277,9 @@ const Project: React.FC = () => {
                <Reveal delay={200}>
                   <div className="bg-white p-12 border border-[#0F0E0D]/5 h-full">
                      <span className="text-xs font-bold uppercase tracking-widest text-[#C6A87C] mb-6 block">02</span>
-                     <h3 className={`font-sans font-light text-3xl mb-6 text-[#0F0E0D] ${language === 'ar' ? 'font-arabic font-normal' : ''}`}>{(t.project.exceptionalDesign as any)?.craftsmanship}</h3>
+                     <h3 className={`font-sans font-light text-3xl mb-6 text-[#0F0E0D] ${language === 'ar' ? 'font-arabic font-normal' : ''}`}>{designT?.craftsmanship}</h3>
                      <p className={`text-[#0F0E0D]/70 leading-relaxed font-light ${language === 'ar' ? 'font-arabic' : ''}`}>
-                        {(t.project.exceptionalDesign as any)?.craftsmanshipDesc}
+                        {designT?.craftsmanshipDesc}
                      </p>
                   </div>
                </Reveal>
@@ -250,7 +290,7 @@ const Project: React.FC = () => {
          <Section className="bg-[#F7F5F2] py-24">
             <div className="max-w-6xl mx-auto px-4 md:px-0">
                <Reveal>
-                  <JapaneseTitle main={t.project.payment.paymentOptions} sub={t.project.payment.recommendation} />
+                  <JapaneseTitle main={paymentT?.paymentOptions} sub={paymentT?.recommendation} />
                </Reveal>
 
                <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -259,14 +299,14 @@ const Project: React.FC = () => {
                      <div className="bg-[#EAE8E4] p-8 md:p-12 lg:p-16 rounded-sm border border-[#0F0E0D]/5 flex flex-col h-full transform hover:shadow-xl transition-all duration-500">
                         <div className="mb-8">
                            <div className="inline-block px-4 py-1.5 bg-[#C6A87C] text-white text-[10px] font-bold uppercase tracking-widest rounded-sm mb-8">
-                              {t.project.payment.preferredChoice}
+                              {paymentT?.preferredChoice}
                            </div>
                            <h3 className={`text-4xl md:text-5xl text-[#0F0E0D] font-light mb-8 ${language === 'ar' ? 'font-arabic' : 'font-sans'}`}>
-                              {t.project.payment.cash100}
+                              {paymentT?.cash100}
                            </h3>
                            <div className={`w-16 h-0.5 bg-[#C6A87C] mb-8 ${language === 'ar' ? 'mr-0' : 'ml-0'}`}></div>
                            <p className={`text-[#0F0E0D]/70 text-lg md:text-xl leading-relaxed font-light ${language === 'ar' ? 'font-arabic' : 'font-sans text-[1.1rem]'}`}>
-                              {t.project.payment.desc}
+                              {paymentT?.desc}
                            </p>
                         </div>
                      </div>
@@ -277,10 +317,10 @@ const Project: React.FC = () => {
                      <div className="bg-white p-8 md:p-12 lg:p-16 rounded-sm border border-[#0F0E0D]/5 shadow-sm h-full flex flex-col transform hover:shadow-xl transition-all duration-500">
                         <div className="mb-10">
                            <h3 className={`text-4xl md:text-5xl text-[#0F0E0D] font-light mb-3 ${language === 'ar' ? 'font-arabic' : 'font-sans'}`}>
-                              {t.project.payment.installmentPlan}
+                              {paymentT?.installmentPlan}
                            </h3>
                            <span className={`text-[#C6A87C] text-sm uppercase tracking-widest font-bold tracking-[0.2em] opacity-70 ${language === 'ar' ? 'font-arabic' : 'font-sans'}`}>
-                              {t.project.payment.paymentOptions}
+                              {paymentT?.paymentOptions}
                            </span>
                         </div>
 
@@ -334,14 +374,14 @@ const Project: React.FC = () => {
                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
                   <div className="lg:col-span-4 flex flex-col justify-between">
                      <div>
-                        <JapaneseTitle main={t.project.warranties.title} sub={t.project.warranties.sub} />
+                        <JapaneseTitle main={warrantiesT?.title} sub={warrantiesT?.sub} />
                         <p className={`text-bonsai-dark/60 mt-8 mb-12 text-lg font-light leading-relaxed ${language === 'ar' ? 'font-arabic' : ''}`}>
-                           {t.project.warranties.desc}
+                           {warrantiesT?.desc}
                         </p>
                      </div>
                      <div className="hidden lg:block">
                         <Link to="/contact">
-                           <Button variant="primary">{t.project.warranties.inquire}</Button>
+                           <Button variant="primary">{warrantiesT?.inquire}</Button>
                         </Link>
                      </div>
                   </div>
@@ -349,20 +389,20 @@ const Project: React.FC = () => {
                   <div className="lg:col-span-8">
                      <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-bonsai-dark/10 border border-bonsai-dark/10">
                         {[
-                           { years: "10", title: t.project.warranties.items.structure },
-                           { years: "25", title: t.project.warranties.items.electricPanels },
-                           { years: "10", title: t.project.warranties.items.insulation },
-                           { years: "5", title: t.project.warranties.items.electricPlumbing },
-                           { years: "2", title: t.project.warranties.items.fullWarranty },
-                           { years: "2", title: t.project.warranties.items.elevatorsLights },
-                           { years: "1", title: t.project.warranties.items.doorsPaint },
-                           { years: "3", title: t.project.warranties.items.aluminium },
+                           { years: "10", title: warrantiesT?.items?.structure },
+                           { years: "25", title: warrantiesT?.items?.electricPanels },
+                           { years: "10", title: warrantiesT?.items?.insulation },
+                           { years: "5", title: warrantiesT?.items?.electricPlumbing },
+                           { years: "2", title: warrantiesT?.items?.fullWarranty },
+                           { years: "2", title: warrantiesT?.items?.elevatorsLights },
+                           { years: "1", title: warrantiesT?.items?.doorsPaint },
+                           { years: "3", title: warrantiesT?.items?.aluminium },
                         ].map((w, i) => (
                            <div key={i} className="bg-bonsai-beige p-8 aspect-square flex flex-col justify-between group hover:bg-white transition-colors">
                               <Reveal delay={i * 50}>
                                  <div className="font-sans font-extralight text-5xl md:text-6xl text-[#C6A87C] opacity-80 group-hover:opacity-100 transition-opacity">{w.years}</div>
                                  <div className="mt-4">
-                                    <span className={`text-[10px] uppercase tracking-widest text-bonsai-dark/40 mb-1 block ${language === 'ar' ? 'font-arabic' : ''}`}>{t.project.warranties.years}</span>
+                                    <span className={`text-[10px] uppercase tracking-widest text-bonsai-dark/40 mb-1 block ${language === 'ar' ? 'font-arabic' : ''}`}>{warrantiesT?.years}</span>
                                     <h4 className={`font-bold text-sm leading-tight text-bonsai-dark ${language === 'ar' ? 'font-arabic' : ''}`}>{w.title}</h4>
                                  </div>
                               </Reveal>
@@ -371,7 +411,7 @@ const Project: React.FC = () => {
                      </div>
                      <div className="mt-12 lg:hidden">
                         <Link to="/contact">
-                           <Button variant="primary">{t.project.warranties.inquire}</Button>
+                           <Button variant="primary">{warrantiesT?.inquire}</Button>
                         </Link>
                      </div>
                   </div>
@@ -383,9 +423,9 @@ const Project: React.FC = () => {
          <Section className="bg-[#F7F5F2]" fullWidth>
             <div className="px-6 md:px-12 lg:px-24 mb-16">
                <Reveal>
-                  <JapaneseTitle main={t.project.masterplan?.title || "Masterplan"} sub={t.project.masterplan?.sub || "Layout"} />
+                  <JapaneseTitle main={masterplanT?.title || "Masterplan"} sub={masterplanT?.sub || "Layout"} />
                   <p className={`text-[#0F0E0D]/60 max-w-2xl font-light text-xl mt-8 ${language === 'ar' ? 'font-arabic' : ''}`}>
-                     {t.project.masterplan.desc}
+                     {masterplanT?.desc}
                   </p>
                </Reveal>
             </div>
@@ -399,9 +439,9 @@ const Project: React.FC = () => {
             <div className="max-w-5xl mx-auto">
                <Reveal>
                   <div className="text-center mb-16">
-                     <JapaneseTitle main={t.project.brands.title} sub={t.project.brands.sub} />
+                     <JapaneseTitle main={brandsT?.title} sub={brandsT?.sub} />
                      <p className={`text-bonsai-dark/60 mt-8 max-w-3xl mx-auto text-lg font-light leading-relaxed ${language === 'ar' ? 'font-arabic' : ''}`}>
-                        {t.project.brands.desc}
+                        {brandsT?.desc}
                      </p>
                   </div>
                </Reveal>
@@ -431,7 +471,7 @@ const Project: React.FC = () => {
 
                <Reveal>
                   <p className={`text-[#0F0E0D]/30 text-[10px] uppercase tracking-widest text-center mt-16 ${language === 'ar' ? 'font-arabic' : ''}`}>
-                     {t.project.brands.disclaimer}
+                     {brandsT?.disclaimer}
                   </p>
                </Reveal>
             </div>
@@ -442,7 +482,7 @@ const Project: React.FC = () => {
             <div className="max-w-6xl mx-auto">
                <Reveal>
                   <div className="mb-16">
-                     <JapaneseTitle main={t.project.techSpecs.title} sub={t.project.techSpecs.sub} />
+                     <JapaneseTitle main={techT?.title} sub={techT?.sub} />
                   </div>
                </Reveal>
 
@@ -451,10 +491,10 @@ const Project: React.FC = () => {
                      <div className="bg-white p-8 rounded-sm shadow-sm h-full border-t-2 border-[#C6A87C]">
                         <h3 className={`text-xl font-bold mb-8 flex items-center gap-3 ${language === 'ar' ? 'font-arabic' : ''}`}>
                            <span className="w-8 h-8 rounded-full bg-[#C6A87C]/10 flex items-center justify-center text-[#C6A87C] text-sm">01</span>
-                           {t.project.techSpecs.architectural.title}
+                           {techT?.architectural?.title}
                         </h3>
                         <ul className="space-y-4">
-                           {t.project.techSpecs.architectural.items.map((item: string, i: number) => (
+                           {(techT?.architectural?.items || []).map((item: string, i: number) => (
                               <li key={i} className={`flex items-start gap-3 text-sm text-[#0F0E0D]/70 ${language === 'ar' ? 'font-arabic flex-row-reverse' : ''}`}>
                                  <div className="w-1.5 h-1.5 rounded-full bg-[#C6A87C] mt-1.5 shrink-0" />
                                  <span>{item}</span>
@@ -468,10 +508,10 @@ const Project: React.FC = () => {
                      <div className="bg-white p-8 rounded-sm shadow-sm h-full border-t-2 border-[#C6A87C]">
                         <h3 className={`text-xl font-bold mb-8 flex items-center gap-3 ${language === 'ar' ? 'font-arabic' : ''}`}>
                            <span className="w-8 h-8 rounded-full bg-[#C6A87C]/10 flex items-center justify-center text-[#C6A87C] text-sm">02</span>
-                           {t.project.techSpecs.mechanical.title}
+                           {techT?.mechanical?.title}
                         </h3>
                         <ul className="space-y-4">
-                           {t.project.techSpecs.mechanical.items.map((item: string, i: number) => (
+                           {(techT?.mechanical?.items || []).map((item: string, i: number) => (
                               <li key={i} className={`flex items-start gap-3 text-sm text-[#0F0E0D]/70 ${language === 'ar' ? 'font-arabic flex-row-reverse' : ''}`}>
                                  <div className="w-1.5 h-1.5 rounded-full bg-[#C6A87C] mt-1.5 shrink-0" />
                                  <span>{item}</span>
@@ -485,10 +525,10 @@ const Project: React.FC = () => {
                      <div className="bg-white p-8 rounded-sm shadow-sm h-full border-t-2 border-[#C6A87C]">
                         <h3 className={`text-xl font-bold mb-8 flex items-center gap-3 ${language === 'ar' ? 'font-arabic' : ''}`}>
                            <span className="w-8 h-8 rounded-full bg-[#C6A87C]/10 flex items-center justify-center text-[#C6A87C] text-sm">03</span>
-                           {t.project.techSpecs.electrical.title}
+                           {techT?.electrical?.title}
                         </h3>
                         <ul className="space-y-4">
-                           {t.project.techSpecs.electrical.items.map((item: string, i: number) => (
+                           {(techT?.electrical?.items || []).map((item: string, i: number) => (
                               <li key={i} className={`flex items-start gap-3 text-sm text-[#0F0E0D]/70 ${language === 'ar' ? 'font-arabic flex-row-reverse' : ''}`}>
                                  <div className="w-1.5 h-1.5 rounded-full bg-[#C6A87C] mt-1.5 shrink-0" />
                                  <span>{item}</span>
@@ -548,6 +588,15 @@ const Project: React.FC = () => {
                </div>
             </div>
          </Section>
+
+         <Lightbox
+            isOpen={lightboxOpen}
+            onClose={() => setLightboxOpen(false)}
+            images={galleryImages}
+            currentIndex={lightboxIndex}
+            onNext={nextImage}
+            onPrev={prevImage}
+         />
       </div>
    );
 };

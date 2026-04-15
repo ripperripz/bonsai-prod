@@ -56,6 +56,16 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
+    // Skip POST requests - they cannot be cached
+    if (request.method !== 'GET') {
+        return;
+    }
+
+    // Skip API calls - don't cache them
+    if (url.pathname.startsWith('/api/')) {
+        return;
+    }
+
     // Cache-first strategy for static assets
     if (
         request.destination === 'image' ||
@@ -87,7 +97,7 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Network-first strategy for HTML and API calls
+    // Network-first strategy for HTML pages
     event.respondWith(
         fetch(request)
             .then((response) => {

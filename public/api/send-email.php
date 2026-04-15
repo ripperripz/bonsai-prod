@@ -4,110 +4,85 @@ header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
+// Handle preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
     exit(0);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get JSON input
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
 
+    // Log for debugging (check error_log in cPanel)
+    error_log("Contact Form Data: " . $json);
+
     if (!$data) {
+        http_response_code(400);
         echo json_encode(["status" => "error", "message" => "Invalid JSON input"]);
         exit;
     }
 
-    $to = "amad@bonsai.sa";
-    $subject = "New Contact Recognition - " . ($data['contact_objective'] ?? 'Inquiry');
-
-    $firstName = stripslashes($data['firstName'] ?? '');
-    $lastName = stripslashes($data['lastName'] ?? '');
-    $email = stripslashes($data['email'] ?? '');
-    $mobile = stripslashes($data['mobile'] ?? '');
-    $contactObjective = $data['contact_objective'] ?? '';
-    $unitType = $data['unit_type'] ?? 'N/A';
+    // Extract form data - handle both camelCase and snake_case
+    $firstName = htmlspecialchars($data['firstName'] ?? '');
+    $lastName = htmlspecialchars($data['lastName'] ?? '');
+    $email = filter_var($data['email'] ?? '', FILTER_SANITIZE_EMAIL);
+    $mobile = htmlspecialchars($data['mobile'] ?? '');
+    $contactObjective = $data['contactObjective'] ?? $data['contact_objective'] ?? 'Inquiry';
+    $unitType = $data['unitType'] ?? $data['unit_type'] ?? 'N/A';
     $objective = $data['objective'] ?? 'N/A';
     $payment = $data['payment'] ?? 'N/A';
-    $message = stripslashes($data['message'] ?? '');
+    $message = htmlspecialchars($data['message'] ?? '');
     $language = $data['language'] ?? 'en';
-    
-    $timestamp = date("F j, Y, g:i a") . " (Riyadh Time)";
 
-    // HTML Email Body
-    $body = "
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #0F0E0D; max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: #0F0E0D; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
-        .content { background: #F7F5F2; padding: 30px; border: 1px solid #ddd; border-top: none; }
-        .field { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .label { font-size: 11px; text-transform: uppercase; color: #C6A87C; font-weight: bold; }
-        .value { font-size: 16px; margin-top: 5px; }
-        .message-box { background: white; padding: 15px; border-left: 4px solid #C6A87C; margin-top: 10px; }
-        .footer { text-align: center; font-size: 12px; color: #666; margin-top: 20px; }
-      </style>
-    </head>
-    <body>
-      <div class='header'>
-        <h1 style='margin:0; font-size: 20px; letter-spacing: 2px;'>BONSAI RESIDENCES</h1>
-      </div>
-      <div class='content'>
-        <div class='field'>
-          <div class='label'>Contact Name</div>
-          <div class='value'>$firstName $lastName</div>
-        </div>
-        <div class='field'>
-          <div class='label'>Email</div>
-          <div class='value'>$email</div>
-        </div>
-        <div class='field'>
-          <div class='label'>Mobile</div>
-          <div class='value'>+966 $mobile</div>
-        </div>
-        <div class='field'>
-          <div class='label'>Objective</div>
-          <div class='value'>$contactObjective</div>
-        </div>";
-
-    if ($contactObjective === 'Purchase Inquiry') {
-        $body .= "
-        <div class='field'>
-          <div class='label'>Unit Type / Purchase Interest</div>
-          <div class='value'>
-            Type: $unitType <br>
-            Purpose: $objective <br>
-            Payment: $payment
-          </div>
-        </div>";
+    // Validate required fields
+    if (empty($firstName) || empty($email) || empty($message)) {
+        http_response_code(400);
+        echo json_encode(["status" => "error", "message" => "Missing required fields"]);
+        exit;
     }
 
-    $body .= "
-        <div class='field'>
-          <div class='label'>Message</div>
-          <div class='message-box'>" . nl2br(htmlspecialchars($message)) . "</div>
-        </div>
-        <div class='field' style='border:none;'>
-          <div class='label'>Sent At</div>
-          <div class='value' style='font-size:12px;'>$timestamp | Language: $language</div>
-        </div>
-      </div>
-      <div class='footer'>
-        Sent from bonsai.sa website contact form.
-      </div>
-    </body>
-    </html>";
+    // Email configuration - SAME AS TEST FILE THAT WORKED
+    $to = "amad@bonsai.sa";
+    $subject = "New Contact Form - Bonsai Website";
+    
+    // Simple plain text version first (since test worked with plain text)
+    $body = "New Contact Form Submission\n";
+    $body .= "===========================\n\n";
+    $body .= "Name: $firstName $lastName\n";
+    $body .= "Email: $email\n";
+    $body .= "Mobile: +966 $mobile\n";
+    $body .= "Objective: $contactObjective\n";
+    
+    if ($contactObjective === 'purchase') {
+        $body .= "Unit Type: $unitType\n";
+        $body .= "Purpose: $objective\n";
+        $body .= "Payment: $payment\n";
+    }
+    
+    $body .= "\nMessage:\n$message\n";
+    $body .= "\n===========================\n";
+    $body .= "Sent from bonsai.sa contact form\n";
+    $body .= "Language: $language\n";
+    $body .= "Time: " . date("Y-m-d H:i:s") . "\n";
 
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers .= "From: webmaster@bonsai.sa" . "\r\n";
-    $headers .= "Reply-To: $email" . "\r\n";
+    // Simple headers - SAME FORMAT AS TEST FILE THAT WORKED
+    $headers = "From: amad@bonsai.sa\r\n";
+    $headers .= "Reply-To: $email\r\n";
 
-    if (mail($to, $subject, $body, $headers)) {
+    // Send email
+    $mailSent = mail($to, $subject, $body, $headers);
+    
+    // Log result
+    error_log("Mail sent result: " . ($mailSent ? "success" : "failed"));
+
+    if ($mailSent) {
         echo json_encode(["status" => "success", "message" => "Email sent successfully"]);
     } else {
         http_response_code(500);
+        $error = error_get_last();
+        error_log("Mail error: " . print_r($error, true));
         echo json_encode(["status" => "error", "message" => "Failed to send email"]);
     }
 } else {

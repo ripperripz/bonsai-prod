@@ -10,6 +10,7 @@ interface LanguageContextType {
   direction: Direction;
   toggleLanguage: () => void;
   t: typeof translations['en'];
+  showProjects: boolean;
 }
 
 declare global {
@@ -22,8 +23,19 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('ar'); // Default to Arabic
+  const [showProjects, setShowProjects] = useState<boolean>(true);
 
   useEffect(() => {
+    // Fetch global config
+    fetch('/config.json')
+      .then(res => res.json())
+      .then(config => {
+        if (config && typeof config.showProjects === 'boolean') {
+          setShowProjects(config.showProjects);
+        }
+      })
+      .catch(err => console.error('Failed to load visibility config:', err));
+
     // Check localStorage for saved preference
     const savedLang = localStorage.getItem('bonsai_lang') as Language;
     if (savedLang && (savedLang === 'en' || savedLang === 'ar')) {
@@ -70,7 +82,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const t = deepMerge(internal, external) as typeof translations['en'];
 
   return (
-    <LanguageContext.Provider value={{ language, direction, toggleLanguage, t }}>
+    <LanguageContext.Provider value={{ language, direction, toggleLanguage, t, showProjects }}>
       {children}
     </LanguageContext.Provider>
   );

@@ -9,7 +9,6 @@ const Serenity: React.FC = () => {
    const { language, t } = useLanguage();
 
    const oasisImages = [
-      "/images/serenity/1.png",
       "/images/serenity/2.png",
       "/images/serenity/3.png",
       "/images/serenity/4.png",
@@ -160,7 +159,7 @@ const Serenity: React.FC = () => {
 
          {/* --- 4. OASIS OF SERENITY (P4) - Sensory Experience --- */}
          <Section className="bg-white py-0" fullWidth>
-            <div className="py-24 px-6 md:px-12 lg:px-24">
+            <div className="pt-32 pb-24 px-6 md:px-12 lg:px-24">
                <Reveal>
                   <JapaneseTitle main={t.serenity?.oasisTitle || "Oasis of Serenity"} sub={t.serenity?.oasisSub || "The Concept"} center />
 
@@ -211,21 +210,10 @@ const Serenity: React.FC = () => {
 
             {/* --- Creative Grid Layout for Images (Bento/Box Style) --- */}
             <div className="px-6 md:px-12 lg:px-24 pb-24">
-               <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[250px] gap-4">
+               <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[300px] gap-4">
                   {oasisImages.map((src, index) => {
-                     // Grid Configuration for 10 images to form a 4x4 rectangular box
-                     const spanClass = [
-                        "md:col-span-2 md:row-span-2", // 0: Large Square Top-Left
-                        "md:col-span-1 md:row-span-1", // 1: Small
-                        "md:col-span-1 md:row-span-1", // 2: Small
-                        "md:col-span-1 md:row-span-1", // 3: Small
-                        "md:col-span-1 md:row-span-1", // 4: Small
-                        "md:col-span-1 md:row-span-1", // 5: Small
-                        "md:col-span-1 md:row-span-1", // 6: Small
-                        "md:col-span-2 md:row-span-2", // 7: Large Square Bottom-Right
-                        "md:col-span-1 md:row-span-1", // 8: Small
-                        "md:col-span-1 md:row-span-1", // 9: Small
-                     ][index] || "md:col-span-1 md:row-span-1";
+                     // Perfect 3x3 square grid - all images same size
+                     const spanClass = "md:col-span-1 md:row-span-1";
 
                      return (
                         <div key={index} className={`relative group overflow-hidden rounded-sm ${spanClass} cursor-default`}>
