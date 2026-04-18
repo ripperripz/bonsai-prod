@@ -30,3 +30,7 @@ dist-ssr
 
 # Archives
 *.zip
+*.gz
+
+# Documentation
+*.md
