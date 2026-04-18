@@ -34,3 +34,9 @@ dist-ssr
 
 # Documentation
 *.md
+
+# Backups and Tests
+*.bak
+test_*
+test-*
+*.test.*
